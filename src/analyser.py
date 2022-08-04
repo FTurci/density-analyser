@@ -36,9 +36,6 @@ class Quadrant(Reader):
         super().__init__(description)
         self.parser.add_argument("--tofile",type=str, default="tmp-quadrant-output.txt")
 
-
-
-
     def compute(self):
         start = self.args.start
         end = self.args.end
@@ -58,4 +55,5 @@ class Quadrant(Reader):
             # print(quadrant_num)
             quadrant_num = np.array(quadrant_num)
             quadrant_frac = quadrant_num/N
+
             self.vprint(frame, quadrant_frac.ptp())
