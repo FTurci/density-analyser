@@ -6,14 +6,15 @@ import argparse
 class Reader:
     """Complete this generic reader in the furute!!!"""
     def __init__(self, description):
-        pass
-
-
         parser = argparse.ArgumentParser(description)
         parser.add_argument("path",type=str)
         parser.add_argument("--start", default=0,type=int)
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
+        self.parser.add_argument("--verbose",type=bool, default="yes")
+        self.paser = parser
+
+    def open_pipe(self):
         self.args = parser.parse_args()
 
         self.pipe = ovito.io.import_file(self.args.path, multiple_frames=True)
@@ -24,9 +25,20 @@ class Reader:
             self.args.end = nframes
 
 
+    def vprint(self):
+        if self.verbose==True:
+            print(">",**args,**kwargs)
+
 
 
 class Quadrant(Reader):
+    def __init__(self,description):
+        super().__init__(description)
+        self.parser.add_argument("--tofile",type=str, default="tmp-quadrant-output.txt")
+
+
+
+
     def compute(self):
         start = self.args.start
         end = self.args.end
