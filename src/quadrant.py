@@ -32,6 +32,6 @@ for frame in range(start, end, stride):
             num  = sum((i*pos[:,0]>0)*(j*pos[:,1]>0))
             quadrant_num.append(num)
     # print(quadrant_num)
-    # quadrant_num = np.array(quadrant_num)
+    quadrant_num = np.array(quadrant_num)
     # print(quadrant_num/N)
     print(":",frame, quadrant_num.ptp())
