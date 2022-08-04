@@ -11,7 +11,7 @@ class Reader:
         parser.add_argument("--start", default=0,type=int)
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
-        parser.add_argument("--verbose",type=bool, default=True)
+        parser.add_argument("--verbose",action=argparse.BooleanOptionalAction)
         print(parser)
         self.parser = parser
 
@@ -27,7 +27,7 @@ class Reader:
 
     def vprint(self,*args,**kwargs):
         if self.args.verbose==True:
-            print(">",*args,**kwargs)
+            print(":v:",*args,**kwargs)
 
 
 
@@ -35,12 +35,14 @@ class Quadrant(Reader):
     def __init__(self,description):
         super().__init__(description)
         self.parser.add_argument("--tofile",type=str, default="tmp-quadrant-output.txt")
+
         super().open_pipe()
 
     def compute(self):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
+
 
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
