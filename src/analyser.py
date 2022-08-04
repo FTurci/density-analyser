@@ -19,8 +19,7 @@ class Reader:
         self.args = self.parser.parse_args()
 
         self.pipe = ovito.io.import_file(self.args.path, multiple_frames=True)
-
-        self.parser = parser
+        
         nframes = self.pipe.source.num_frames
         if self.args.end==-10:
             self.args.end = nframes
