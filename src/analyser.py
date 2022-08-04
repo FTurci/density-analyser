@@ -27,7 +27,7 @@ class Reader:
 
 
 class Quadrant(Reader):
-    def compute():
+    def compute(self):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
