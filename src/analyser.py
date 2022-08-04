@@ -35,7 +35,8 @@ class Quadrant(Reader):
     def __init__(self,description):
         super().__init__(description)
         self.parser.add_argument("--tofile",type=str, default="tmp-quadrant-output.txt")
-
+        super().open_pipe()
+        
     def compute(self):
         start = self.args.start
         end = self.args.end
