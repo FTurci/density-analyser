@@ -11,7 +11,7 @@ class Reader:
         parser.add_argument("--start", default=0,type=int)
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
-        parser.add_argument("--verbose",type=bool, default="yes")
+        parser.add_argument("--verbose",type=bool, default=True)
         print(parser)
         self.parser = parser
 
