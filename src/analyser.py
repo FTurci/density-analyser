@@ -12,6 +12,7 @@ class Reader:
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
         parser.add_argument("--verbose",type=bool, default="yes")
+        print(parser)
         self.parser = parser
 
     def open_pipe(self):
