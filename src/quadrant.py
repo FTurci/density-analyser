@@ -8,12 +8,12 @@ parser.add_argument("path")
 parser.add_argument("--start", default=0,type=int)
 parser.add_argument("--end", default=-10,type=int)
 parser.add_argument("--stride", default=1,type=int)
-parser.parse_args()
+args = parser.parse_args()
 
-path = parser.path
-start = parser.start
-end = parse.end
-stride = parser.stride
+path = args.path
+start = args.start
+end = args.end
+stride = args.stride
 
 pipe = ovito.io.import_file(path, multiple_frames=True)
 nframes = pipe.source.num_frames
