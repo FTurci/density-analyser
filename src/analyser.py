@@ -60,4 +60,4 @@ class Quadrant(Reader):
             quadrant_frac = quadrant_num/N
 
             self.vprint(frame, quadrant_frac.ptp())
-            if fopen: fopen.write(f"{frame} {str(quadrant_frac)[1:-1]}\n")
+            if 'fopen' in locals(): fopen.write(f"{frame} {str(quadrant_frac)[1:-1]}\n")
