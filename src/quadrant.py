@@ -5,9 +5,9 @@ import argparse
 
 parser = argparse.ArgumentParser("Analyse the density difference in the four quadrants of the plane orthogonal to z")
 parser.add_argument("path")
-parser.add_argument("start", default=0,type=int)
-parser.add_argument("end", default=-10,type=int)
-parser.add_argument("stride", default=1,type=int)
+parser.add_argument("--start", default=0,type=int)
+parser.add_argument("--end", default=-10,type=int)
+parser.add_argument("--stride", default=1,type=int)
 parser.parse_args()
 
 path = parser.path
