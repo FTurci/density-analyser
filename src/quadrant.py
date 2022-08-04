@@ -29,7 +29,7 @@ for frame in range(start, end, stride):
     quadrant_num = []
     for i in [-1,1]:
         for j in [-1, 1]:
-            num  = (i*pos[:,0]>0)*(j*pos[:,1]>0)
+            num  = sum((i*pos[:,0]>0)*(j*pos[:,1]>0))
             quadrant_num.append(num)
     print(quadrant_num)
     quadrant_num = np.array(quadrant_num)
