@@ -11,8 +11,7 @@ class Reader:
         parser.add_argument("--start", default=0,type=int)
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
-        parser.add_argument("--verbose",action=argparse.BooleanOptionalAction)
-        print(parser)
+        parser.add_argument("--verbose",action='store_true')
         self.parser = parser
 
     def open_pipe(self):
