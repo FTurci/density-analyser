@@ -19,15 +19,15 @@ class Reader:
         self.args = self.parser.parse_args()
 
         self.pipe = ovito.io.import_file(self.args.path, multiple_frames=True)
-        
+
         nframes = self.pipe.source.num_frames
         if self.args.end==-10:
             self.args.end = nframes
 
 
-    def vprint(self):
+    def vprint(self,**args,**kwargs):
         if self.verbose==True:
-            print(">",**args,**kwargs)
+            print(">",*args,*kwargs)
 
 
 
