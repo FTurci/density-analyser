@@ -25,7 +25,7 @@ class Reader:
             self.args.end = nframes
 
 
-    def vprint(self,**args,**kwargs):
+    def vprint(self,*args,**kwargs):
         if self.verbose==True:
             print(">",*args,*kwargs)
 
