@@ -42,8 +42,7 @@ class Quadrant(Reader):
         stride = self.args.stride
         if self.args.tofile != None:
             fopen = open(self.args.tofile,"w")
-
-
+            
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             # only get x-y
