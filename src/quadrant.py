@@ -33,5 +33,5 @@ for frame in range(start, end, stride):
             quadrant_num.append(num)
     # print(quadrant_num)
     quadrant_num = np.array(quadrant_num)
-    # print(quadrant_num/N)
-    print(":",frame, quadrant_num.ptp())
+    quadrant_frac = quadrant_num/N
+    print(":",frame, quadrant_frac.ptp())
