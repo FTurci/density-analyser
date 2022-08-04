@@ -15,7 +15,7 @@ class Reader:
         self.parser = parser
 
     def open_pipe(self):
-        self.args = parser.parse_args()
+        self.args = self.parser.parse_args()
 
         self.pipe = ovito.io.import_file(self.args.path, multiple_frames=True)
 
