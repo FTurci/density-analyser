@@ -26,7 +26,7 @@ class Reader:
 
 
     def vprint(self,*args,**kwargs):
-        if self.verbose==True:
+        if self.args.verbose==True:
             print(">",*args,**kwargs)
 
 
