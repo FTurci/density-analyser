@@ -33,7 +33,7 @@ class Quadrant(Reader):
         stride = self.args.stride
 
         for frame in range(start, end, stride):
-            data = pipe.compute(frame)
+            data = self.pipe.compute(frame)
             # only get x-y
             pos = data.particles.positions.array[:,:2]
             N = pos.shape[0]
