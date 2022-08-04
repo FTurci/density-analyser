@@ -31,7 +31,7 @@ class Quadrant(Reader):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        
+
         for frame in range(start, end, stride):
             data = pipe.compute(frame)
             # only get x-y
