@@ -41,7 +41,7 @@ class Quadrant(Reader):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        if self.args.tofile !- None:
+        if self.args.tofile != None:
             fopen = open(self.args.tofile,"w")
 
         for frame in range(start, end, stride):
