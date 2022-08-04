@@ -33,7 +33,7 @@ class Reader:
 class Quadrant(Reader):
     def __init__(self,description):
         super().__init__(description)
-        self.parser.add_argument("-tf","--tofile",type=str, default="tmp-quadrant-output.txt")
+        self.parser.add_argument("-tf","--tofile",type=str, default=None)
 
         super().open_pipe()
 
@@ -41,8 +41,8 @@ class Quadrant(Reader):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-
-        fopen = open(self.args.tofile,"w")
+        if self.args.tofile !- None:
+            fopen = open(self.args.tofile,"w")
 
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
@@ -60,4 +60,4 @@ class Quadrant(Reader):
             quadrant_frac = quadrant_num/N
 
             self.vprint(frame, quadrant_frac.ptp())
-            fopen.write(f"{frame} {str(quadrant_frac)[1:-1]}\n")
+            if fopen: fopen.write(f"{frame} {str(quadrant_frac)[1:-1]}\n")
