@@ -1,7 +1,10 @@
 import ovito # Note: on the cluster, you may need to set the variable DISPLAY=""
 import numpy as np
 import argparse
+import
 
+
+os.environ["DISPLAY"] = ""
 
 class Reader:
     """Complete this generic reader in the furute!!!"""
