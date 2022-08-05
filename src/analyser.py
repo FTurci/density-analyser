@@ -1,9 +1,9 @@
-import ovito # Note: on the cluster, you may need to set the variable DISPLAY=""
+import ovito
 import numpy as np
 import argparse
 import
 
-
+ # Note: on the cluster, you may need to set the variable DISPLAY="" for Ovito to work
 os.environ["DISPLAY"] = ""
 
 class Reader:
