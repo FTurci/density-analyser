@@ -5,6 +5,13 @@ import os
  # Note: on the cluster, you may need to set the variable DISPLAY="" for Ovito to work
 os.environ["DISPLAY"] = ""
 
+
+def asymmetry(rho,x,normalisation):
+    p = x>0
+    n = x<0
+    b = x[1]-x[0]
+    return np.absolute(np.trapz(rho[p],x[p],dx=b)-np.trapz(rho[n],x[n],b))/normalisation
+
 class Reader:
     """Base class to read and process density profiles."""
     def __init__(self, description):
@@ -70,19 +77,25 @@ class LateralProfile(Reader):
         super().__init__(description)
         self.parser.add_argument("--bin",type=float, default=0.5)
         self.parser.add_argument("-ax","--axis",type=int, default=0)
-
         super().open_pipe()
+        # store indices of other two dimensions
+        self.others = [0,1,2]
+        self.others.remove(self.args.axis)
+        self.axis = self.args.axis
 
     def compute(self):
         """Accumulate density profiles"""
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        axis = self.args.axis
+        axis = self.axis
 
         data = self.pipe.compute(0)
         self.cell = data.cell[:]
-        binning = np.arange(self.cell[axis,-1], self.cell[axis,axis]+self.cell[axis,-1], self.args.bin)
+        self.volume = self.cell[0,0]*self.cell[1,1]*self.cell[2,2]
+        self.num_part = data.particles.positions.array.shape[0]
+        self.density = self.num_part/self.volume
+        binning = np.arange(self.cell[axis,-1], self.cell[axis,axis]+self.cell[axis,-1]+self.args.bin, self.args.bin)
         profiles = []
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
@@ -94,19 +107,30 @@ class LateralProfile(Reader):
         profiles = np.array(profiles)
 
         self.profiles = profiles
-        self.x = binning+self.args.bin/2
+        self.x = binning[:-1]+self.args.bin/2
 
-    def stats(self,start=None,end=None,stride=None):
+    def stats(self,start=None,end=None,stride=None,normalisation_density=None):
+
         """Compute statistics for the profile"""
-        if start==None:
-            start = self.args.start
-        if end==None:
-            end = self.args.end
-        if stride==None:
-            stride = self.args.stride
-
         if hasattr(self, 'profiles') == False:
             self.vprint("ERROR! No profile has been accumulate. Run the `compute()` method first.")
         else:
+            if start==None:
+                start = 0
+            if end==None:
+                end = len(self.x)
+            if stride==None:
+                stride = self.args.stride
+
+
             self.avg_profile = self.profiles[start:end:stride].mean(axis=0)
             self.std_profile = self.profiles[start:end:stride].std(axis=0)
+
+            self.avg_rho_profile = self.avg_profile/(self.args.bin*self.cell[self.others[0],self.others[0]]*self.cell[self.others[1],self.others[1]])
+            if normalisation_density != None:
+                normalisation = (self.density-normalisation_density)*self.cell[self.axis,self.axis]
+            else:
+                normalisation = 1
+
+            self.asymmetry = asymmetry(self.avg_rho_profile,self.x,normalisation)
+            print("asymmetry", self.asymmetry)
