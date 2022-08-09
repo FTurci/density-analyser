@@ -13,7 +13,7 @@ class FluxMonitor(Reader):
         end = self.args.end
         stride = self.args.stride
         # get initial positions
-        data = self.pipe.compute(frame)
+        data = self.pipe.compute(0)
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         # take only particles that are close to the barrier (within a skin value)
