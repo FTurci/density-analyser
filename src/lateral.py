@@ -3,5 +3,7 @@ import numpy as np
 import argparse
 from analyser import Quadrant
 
-Q = Lateral()
-Q.compute()
+L = Lateral()
+L.compute()
+L.stats()
+print(L.avg_profile)
