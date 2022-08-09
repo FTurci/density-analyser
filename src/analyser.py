@@ -7,7 +7,7 @@ import
 os.environ["DISPLAY"] = ""
 
 class Reader:
-    """Complete this generic reader in the furute!!!"""
+    """Base class to read and process density profiles."""
     def __init__(self, description):
         parser = argparse.ArgumentParser(description)
         parser.add_argument("path",type=str)
@@ -64,4 +64,16 @@ class Quadrant(Reader):
             self.vprint(frame, quadrant_frac.ptp())
             if 'fopen' in locals(): fopen.write(f"{frame} {str(quadrant_frac)[1:-1]} {quadrant_frac.ptp()}\n")
 
-class LateralProfile(Reader)
+class LateralProfile(Reader):
+    def __init__(self,description):
+        super().__init__(description)
+        self.parser.add_argument("-tf","--tofile",type=str, default=None)
+        super().open_pipe()
+    def compute(self):
+        start = self.args.start
+        end = self.args.end
+        stride = self.args.stride
+
+        for frame in range(start, end, stride):
+            data = self.pipe.compute(frame)
+            pos = data.particles.positions.array[:,]
