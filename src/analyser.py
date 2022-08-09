@@ -94,6 +94,7 @@ class LateralProfile(Reader):
         profiles = np.array(profiles)
 
         self.profiles = profiles
+        self.x = binning+self.args.bin/2
 
     def stats(self,start=None,end=None,stride=None):
         """Compute statistics for the profile"""
