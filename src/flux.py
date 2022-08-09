@@ -6,12 +6,14 @@ class FluxMonitor(Reader):
     def __init__(self):
         description="Check the flow of particles across the barrier."
         super().__init__(description)
+        self.parser.add_argument("-s","--skin",type=float, default=5.0)
         super().open_pipe()
 
-    def compute(self,skin = 5):
+    def compute(self):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
+        skin = self.args.skin
         # get initial positions
         data = self.pipe.compute(0)
         # only the x-component is important (the barrier is in the yz plane)
