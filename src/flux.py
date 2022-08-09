@@ -23,7 +23,7 @@ class FluxMonitor(Reader):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
             sign = 2*(pos>0)-1.0
-            sign_swithing = np.sum(sign!=sign_old)
+            sign_switching = np.sum(sign!=sign_old)
             print(sign_switching)
 
 
