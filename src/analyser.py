@@ -109,4 +109,5 @@ class LateralProfile(Reader):
             self.vprint("ERROR! No profile has been accumulate. Run the `compute()` method first.")
             self.avg_profile = profiles[start:end:stride].mean(axis=0)
             self.std_profile = profiles[start:end:stride].std(axis=0)
+
             
