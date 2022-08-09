@@ -88,7 +88,7 @@ class LateralProfile(Reader):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,axis]
 
-            profile = np.histogram(pos,bin=binning)
+            profile = np.histogram(pos,bins=binning)
             profiles.append(profile)
 
         profiles = np.array(profiles)
