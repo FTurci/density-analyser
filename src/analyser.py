@@ -75,6 +75,7 @@ class LateralProfile(Reader):
         super().open_pipe()
 
     def compute(self):
+        """Accumulate density profiles""""
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
@@ -94,4 +95,18 @@ class LateralProfile(Reader):
         profiles = np.array(profiles)
 
         self.profiles = profiles
-        
+
+    def stats(self,start=None,end=None,stride=None):
+        """Compute statistics for the profile"""
+        if start==None:
+            start = self.args.start
+        if end==None:
+            end = self.args.end
+        if stride==None:
+            stride = self.args.stride
+
+        if hasattr(self, 'profiles') == False:
+            self.vprint("ERROR! No profile has been accumulate. Run the `compute()` method first.")
+            self.avg_profile = profiles[start:end:stride].mean(axis=0)
+            self.std_profile = profiles[start:end:stride].std(axis=0)
+            
