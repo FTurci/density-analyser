@@ -63,3 +63,5 @@ class Quadrant(Reader):
 
             self.vprint(frame, quadrant_frac.ptp())
             if 'fopen' in locals(): fopen.write(f"{frame} {str(quadrant_frac)[1:-1]} {quadrant_frac.ptp()}\n")
+
+class LateralProfile(Reader)
