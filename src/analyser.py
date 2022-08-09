@@ -34,7 +34,8 @@ class Reader:
 
 
 class Quadrant(Reader):
-    def __init__(self,description):
+    def __init__(self):
+        description="Analyse the density difference in the four quadrants of the plane orthogonal to z"
         super().__init__(description)
         self.parser.add_argument("-tf","--tofile",type=str, default=None)
         super().open_pipe()
@@ -65,15 +66,32 @@ class Quadrant(Reader):
             if 'fopen' in locals(): fopen.write(f"{frame} {str(quadrant_frac)[1:-1]} {quadrant_frac.ptp()}\n")
 
 class LateralProfile(Reader):
-    def __init__(self,description):
+    def __init__(self):
+        description="Compute lateral density profile"
         super().__init__(description)
-        self.parser.add_argument("-tf","--tofile",type=str, default=None)
+        self.parser.add_argument("--bin",type=float, default=0.5)
+        self.parser.add_argument("-ax","--axis",type=int, default=0)
+
         super().open_pipe()
+
     def compute(self):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
+        axis = self.args.axis
 
+        data = self.pipe.compute(0)
+        self.cell = data.cell[:]
+        binning = np.arange(self.cell[axis,-1], self.cell[axis,axis]+self.cell[axis,-1], self.bin)
+        profiles = []
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
-            pos = data.particles.positions.array[:,]
+            pos = data.particles.positions.array[:,axis]
+
+            profile = np.histogram(pos,bin=binning)
+            profiles.append(profile)
+
+        profiles = np.array(profiles)
+
+        self.profiles = profiles
+        
