@@ -74,7 +74,7 @@ class LateralProfile(Reader):
         super().open_pipe()
 
     def compute(self):
-        """Accumulate density profiles""""
+        """Accumulate density profiles"""
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
