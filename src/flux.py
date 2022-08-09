@@ -15,19 +15,27 @@ class FluxMonitor(Reader):
         stride = self.args.stride
         skin = self.args.skin
         # get initial positions
-        data = self.pipe.compute(0)
+        data = self.pipe.compute(start)
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         # take only particles that are close to the barrier (within a skin value)
         valid = (pos_old>-skin)+(pos_old<skin)
-        sign_old = 2*(pos_old>0)-1.0
-        for frame in range(start, end, stride):
+        sign_old = 2*(pos_old[valid]>0)-1.0
+        for frame in range(start+1, end, stride):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
-            sign = 2*(pos>0)-1.0
-            sign_switching = np.sum(sign!=sign_old)
-            sign_old = sign.copy()
-            print(frame, sign_switching)
+            sign = 2*(pos[valid]>0)-1.0
+            # sign_switching = np.sum(sign!=sign_old)
+            neg_to_pos = np.sum(sign>sign_old)
+            pos_to_neg = np.sum(sign<sign_old)
+            rest  = np.sum(sign==sign_old)
+
+            print(frame, neg_to_pos, pos_to_neg,rest,)
+            # update selection
+
+            valid = (pos>-skin)+(pos<skin)
+            sign_old = 2*(pos[valid]>0)-1.0
+
 
 
 F = FluxMonitor()
