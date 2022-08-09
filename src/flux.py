@@ -1,5 +1,5 @@
 from analyser import Reader
-
+import numpy as np
 
 class FluxMonitor(Reader):
     """Monitor flux of particles. Using argparse to parse arguments"""
