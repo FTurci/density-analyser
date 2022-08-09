@@ -2,6 +2,7 @@ from analyser import Reader
 
 
 class FluxMonitor(Reader):
+    """Monitor flux of particles. Using argparse to parse arguments"":
     def __init__(self):
         description="Check the flow of particles across the barrier."
         super().__init__(description)
@@ -24,3 +25,6 @@ class FluxMonitor(Reader):
             sign = 2*(pos>0)-1.0
             sign_swithing = np.sum(sign!=sign_old)
             print(sign_switching)
+
+
+F = FluxMonitor()
