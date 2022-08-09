@@ -1,7 +1,7 @@
 import ovito
 import numpy as np
 import argparse
-import os 
+import os
  # Note: on the cluster, you may need to set the variable DISPLAY="" for Ovito to work
 os.environ["DISPLAY"] = ""
 
@@ -82,7 +82,7 @@ class LateralProfile(Reader):
 
         data = self.pipe.compute(0)
         self.cell = data.cell[:]
-        binning = np.arange(self.cell[axis,-1], self.cell[axis,axis]+self.cell[axis,-1], self.bin)
+        binning = np.arange(self.cell[axis,-1], self.cell[axis,axis]+self.cell[axis,-1], self.args.bin)
         profiles = []
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
