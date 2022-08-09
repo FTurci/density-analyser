@@ -1,7 +1,6 @@
 import ovito
 import numpy as np
 import argparse
-import
 
  # Note: on the cluster, you may need to set the variable DISPLAY="" for Ovito to work
 os.environ["DISPLAY"] = ""
@@ -109,5 +108,3 @@ class LateralProfile(Reader):
             self.vprint("ERROR! No profile has been accumulate. Run the `compute()` method first.")
             self.avg_profile = profiles[start:end:stride].mean(axis=0)
             self.std_profile = profiles[start:end:stride].std(axis=0)
-
-            
