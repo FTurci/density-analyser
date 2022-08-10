@@ -24,11 +24,10 @@ class Reader:
         parser.add_argument("-v","--verbose",action='store_true')
         parser.add_argument("--unzip",action='store_true')
         self.parser = parser
-        self.unzip = unzip
     def open_pipe(self):
         self.args = self.parser.parse_args()
 
-        if self.unzip==True and self.args.path.endswith(".gz"):
+        if self.args.unzip==True and self.args.path.endswith(".gz"):
             self.vprint("Unzipping...", end="")
             os.system("gunzip -k "+path)
             self.path = self.args.path[:-3]
