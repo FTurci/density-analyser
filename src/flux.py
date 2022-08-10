@@ -21,7 +21,7 @@ class FluxMonitor(Reader):
         # take only particles that are close to the barrier (within a skin value)
         valid = (pos_old>-skin)+(pos_old<skin)
         sign_old = 2*(pos_old[valid]>0)-1.0
-        fout = open(self.path+".flux.txt","w")
+        fout = open(self.path+f".flux.skin{skin}.txt","w")
 
         for frame in range(start+1, end, stride):
             data = self.pipe.compute(frame)
