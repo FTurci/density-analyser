@@ -14,7 +14,7 @@ def asymmetry(rho,x,normalisation):
 
 class Reader:
     """Base class to read and process density profiles."""
-    def __init__(self, description, unzip=False):
+    def __init__(self, description):
         parser = argparse.ArgumentParser(description)
         parser.add_argument("path",type=str)
 
@@ -22,6 +22,7 @@ class Reader:
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
         parser.add_argument("-v","--verbose",action='store_true')
+        parser.add_argument("--unzip",action='store_true')
         self.parser = parser
         self.unzip = unzip
     def open_pipe(self):
