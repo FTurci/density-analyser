@@ -35,7 +35,7 @@ class FluxMonitor(Reader):
 
             valid = (pos>-skin)+(pos<skin)
             sign_old = 2*(pos[valid]>0)-1.0
-
+            del data
 
 
 F = FluxMonitor()
