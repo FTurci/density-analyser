@@ -17,24 +17,31 @@ class Reader:
     def __init__(self, description, unzip=False):
         parser = argparse.ArgumentParser(description)
         parser.add_argument("path",type=str)
-        if unzip==True and path.endswith(".gz"):
-            self.vprint("Unzipping...", end="")
-            os.system("gunzip -k "+path)
-            self.vprint("done.")
+
         parser.add_argument("--start", default=0,type=int)
         parser.add_argument("--end", default=-10,type=int)
         parser.add_argument("--stride", default=1,type=int)
         parser.add_argument("-v","--verbose",action='store_true')
         self.parser = parser
-
+        self.unzip = unzip
     def open_pipe(self):
         self.args = self.parser.parse_args()
 
-        self.pipe = ovito.io.import_file(self.args.path, multiple_frames=True)
+        if self.unzip==True and self.args.path.endswith(".gz"):
+            self.vprint("Unzipping...", end="")
+            os.system("gunzip -k "+path)
+            self.path = self.args.path[:-3]
+            self.vprint("done.")
+        else:
+            self.path = self.args.path
+
+
+        self.pipe = ovito.io.import_file(self.path, multiple_frames=True)
 
         nframes = self.pipe.source.num_frames
         if self.args.end==-10:
             self.args.end = nframes
+
 
 
     def vprint(self,*args,**kwargs):
