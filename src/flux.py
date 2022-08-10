@@ -29,8 +29,6 @@ class FluxMonitor(Reader):
             neg_to_pos = np.sum(sign>sign_old)
             pos_to_neg = np.sum(sign<sign_old)
             rest  = np.sum(sign==sign_old)
-
-
             print(frame, neg_to_pos, pos_to_neg,rest,)
             # update selection
 
