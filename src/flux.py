@@ -30,13 +30,14 @@ class FluxMonitor(Reader):
             # pos_to_neg = np.sum(sign<sign_old)
             # rest  = np.sum(sign==sign_old)
             #
+
             # print(frame, neg_to_pos, pos_to_neg,rest,)
             # # update selection
             #
             # valid = (pos>-skin)+(pos<skin)
             # sign_old = 2*(pos[valid]>0)-1.0
             # del data
-
+            print(frame)
 
 F = FluxMonitor()
 F.compute()
