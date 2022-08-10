@@ -23,20 +23,19 @@ class FluxMonitor(Reader):
         sign_old = 2*(pos_old[valid]>0)-1.0
         for frame in range(start+1, end, stride):
             data = self.pipe.compute(frame)
-            # pos = data.particles.positions.array[:,0]
-            # sign = 2*(pos[valid]>0)-1.0
-            # # sign_switching = np.sum(sign!=sign_old)
-            # neg_to_pos = np.sum(sign>sign_old)
-            # pos_to_neg = np.sum(sign<sign_old)
-            # rest  = np.sum(sign==sign_old)
-            #
+            pos = data.particles.positions.array[:,0]
+            sign = 2*(pos[valid]>0)-1.0
+            # sign_switching = np.sum(sign!=sign_old)
+            neg_to_pos = np.sum(sign>sign_old)
+            pos_to_neg = np.sum(sign<sign_old)
+            rest  = np.sum(sign==sign_old)
 
-            # print(frame, neg_to_pos, pos_to_neg,rest,)
-            # # update selection
-            #
-            # valid = (pos>-skin)+(pos<skin)
-            # sign_old = 2*(pos[valid]>0)-1.0
-            # del data
+
+            print(frame, neg_to_pos, pos_to_neg,rest,)
+            # update selection
+
+            valid = (pos>-skin)+(pos<skin)
+            sign_old = 2*(pos[valid]>0)-1.0
             print(frame)
 
 F = FluxMonitor()
