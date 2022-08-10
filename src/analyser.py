@@ -29,7 +29,7 @@ class Reader:
         self.args = self.parser.parse_args()
 
         if self.args.unzip==True and self.args.path.endswith(".gz"):
-            print("Unzipping...", end="")
+            print("Unzipping...", end="", flush=True)
             os.system("gunzip -k "+self.args.path)
             self.path = self.args.path[:-3]
             print("done.")
