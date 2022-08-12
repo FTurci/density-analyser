@@ -25,7 +25,7 @@ class FluxMonitor(Reader):
         sign_old = 2*(pos[valid]>0)-1.0
         fout = open(self.path+f".flux.skin{skin}.txt","w")
 
-        for frame in range(start+1,start+2):# end, stride):
+        for frame in range(start+1, end, stride):
             # print("po",pos[valid])
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
