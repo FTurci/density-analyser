@@ -36,7 +36,7 @@ class FluxMonitor(Reader):
             fout.write(f"{frame} {neg_to_pos} {pos_to_neg}\n")
             # update selection
 
-            valid = (pos>-skin)+(pos<skin)
+            valid = (pos>-skin)*(pos<skin)
             sign_old = 2*(pos[valid]>0)-1.0
 
 
