@@ -20,7 +20,7 @@ class FluxMonitor(Reader):
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         # take only particles that are close to the barrier (within a skin value)
-        valid = (pos_old>-skin)+(pos_old<skin)
+        valid = (pos_old>-skin)*(pos_old<skin)
         print(pos_old[valid])
         sign_old = 2*(pos_old[valid]>0)-1.0
         fout = open(self.path+f".flux.skin{skin}.txt","w")
