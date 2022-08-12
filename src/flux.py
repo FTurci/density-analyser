@@ -26,10 +26,10 @@ class FluxMonitor(Reader):
         fout = open(self.path+f".flux.skin{skin}.txt","w")
 
         for frame in range(start+1, end, stride):
-            print("pp",pos_old[valid])
+            print("po",pos_old[valid])
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
-            print("pp",pos[valid])
+            print("pn",pos[valid])
             sign = 2*(pos[valid]>0)-1.0
             # print(sign)
             # sign_switching = np.sum(sign!=sign_old)
