@@ -14,7 +14,7 @@ class FluxMonitor(Reader):
         end = self.args.end
         stride = self.args.stride
         skin = self.args.skin
-        print("skin",skin)
+        # print("skin",skin)
         # get initial positions
         data = self.pipe.compute(start)
         # only the x-component is important (the barrier is in the yz plane)
@@ -26,10 +26,10 @@ class FluxMonitor(Reader):
         fout = open(self.path+f".flux.skin{skin}.txt","w")
 
         for frame in range(start+1,start+2):# end, stride):
-            print("po",pos[valid])
+            # print("po",pos[valid])
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
-            print("pn",pos[valid])
+            # print("pn",pos[valid])
             sign = 2*(pos[valid]>0)-1.0
             # print(sign)
             # sign_switching = np.sum(sign!=sign_old)
