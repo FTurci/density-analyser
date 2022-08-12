@@ -14,6 +14,7 @@ class FluxMonitor(Reader):
         end = self.args.end
         stride = self.args.stride
         skin = self.args.skin
+        print("skin",skin)
         # get initial positions
         data = self.pipe.compute(start)
         # only the x-component is important (the barrier is in the yz plane)
