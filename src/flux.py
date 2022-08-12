@@ -30,7 +30,7 @@ class FluxMonitor(Reader):
             pos = data.particles.positions.array[:,0]
             print("pp",pos[valid])
             sign = 2*(pos[valid]>0)-1.0
-            print(sign)
+            # print(sign)
             # sign_switching = np.sum(sign!=sign_old)
             neg_to_pos = np.sum(sign>sign_old)
             pos_to_neg = np.sum(sign<sign_old)
