@@ -18,7 +18,7 @@ class FluxMonitor(Reader):
         # get initial positions
         data = self.pipe.compute(start)
         # only the x-component is important (the barrier is in the yz plane)
-        pos = data.particles.positions.array[:,0]
+        pos_old = data.particles.positions.array[:,0]
         # take only particles that are close to the barrier (within a skin value)
         valid = (pos>-skin)*(pos<skin)
         # print(pos[valid])
@@ -38,9 +38,10 @@ class FluxMonitor(Reader):
             rest  = np.sum(sign==sign_old)
             fout.write(f"{frame} {neg_to_pos} {pos_to_neg}\n")
             # update selection
-
+            pos_old =  pos.copy()
             valid = (pos>-skin)*(pos<skin)
             sign_old = 2*(pos[valid]>0)-1.0
+
 
 
 F = FluxMonitor()
