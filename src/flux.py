@@ -20,7 +20,7 @@ class FluxMonitor(Reader):
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         id_old =  data.particles.identifiers.array
-        print(id_old)
+        pos_old = pos_old[id_old.argsort()]
         # take only particles that are close to the barrier (within a skin value)
         valid = (pos_old>-skin)*(pos_old<skin)
         # print(pos[valid])
@@ -32,8 +32,7 @@ class FluxMonitor(Reader):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
             id =  data.particles.identifiers.array
-            print("id_new", id)
-            # print("pn",pos[valid])
+            pos = pos[id.argsor()]
             valid  =  valid *(np.absolute(pos-pos_old)<half_box)
 
             amax  = np.absolute(pos[valid]-pos_old[valid]).argmax()
