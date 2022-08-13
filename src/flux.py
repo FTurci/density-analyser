@@ -50,6 +50,7 @@ class FluxMonitor(Reader):
             rest  = np.sum(sign==sign_old)
             fout.write(f"{frame} {neg_to_pos} {pos_to_neg}\n")
             pos_old =  pos.copy()
+            id_old = id.copy()
             # update selection
             valid = (pos>-skin)*(pos<skin)
 
