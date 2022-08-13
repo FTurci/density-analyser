@@ -32,12 +32,13 @@ class FluxMonitor(Reader):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
             id =  data.particles.identifiers.array
-            pos = pos[id.argsor()]
+            pos = pos[id.argsort()]
             valid  =  valid *(np.absolute(pos-pos_old)<half_box)
 
             amax  = np.absolute(pos[valid]-pos_old[valid]).argmax()
 
             print(id[valid][amax], id_old[valid][amax])
+            prin((pos[valid]-pos_old[valid])[amax])
             sign_old = 2*(pos_old[valid]>0)-1.0
             sign = 2*(pos[valid]>0)-1.0
             # print(sign)
