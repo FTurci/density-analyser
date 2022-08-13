@@ -38,7 +38,7 @@ class FluxMonitor(Reader):
             amax  = np.absolute(pos[valid]-pos_old[valid]).argmax()
 
             print(id[valid][amax], id_old[valid][amax])
-            prin((pos[valid]-pos_old[valid])[amax])
+            print((pos[valid]-pos_old[valid])[amax])
             sign_old = 2*(pos_old[valid]>0)-1.0
             sign = 2*(pos[valid]>0)-1.0
             # print(sign)
