@@ -20,16 +20,19 @@ class FluxMonitor(Reader):
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         # take only particles that are close to the barrier (within a skin value)
-        valid = (pos>-skin)*(pos<skin)
+        valid = (pos_old>-skin)*(pos_old<skin)
         # print(pos[valid])
-        sign_old = 2*(pos[valid]>0)-1.0
-        fout = open(self.path+f".flux.skin{skin}.txt","w")
 
+        fout = open(self.path+f".flux.skin{skin}.txt","w")
+        half_box =  50.0
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
             # print("pn",pos[valid])
+            valid  =  valid *(np.absolute(pos-pos_old)<half_box))
+
+            sign_old = 2*(pos_old[valid]>0)-1.0
             sign = 2*(pos[valid]>0)-1.0
             # print(sign)
             # sign_switching = np.sum(sign!=sign_old)
@@ -37,8 +40,8 @@ class FluxMonitor(Reader):
             pos_to_neg = np.sum(sign<sign_old)
             rest  = np.sum(sign==sign_old)
             fout.write(f"{frame} {neg_to_pos} {pos_to_neg}\n")
-            # update selection
             pos_old =  pos.copy()
+            # update selection
             valid = (pos>-skin)*(pos<skin)
             sign_old = 2*(pos[valid]>0)-1.0
 
