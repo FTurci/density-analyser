@@ -20,6 +20,7 @@ class FluxMonitor(Reader):
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         id_old =  data.particles.identifiers.array
+        print(id_old)
         # take only particles that are close to the barrier (within a skin value)
         valid = (pos_old>-skin)*(pos_old<skin)
         # print(pos[valid])
