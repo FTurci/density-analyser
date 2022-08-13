@@ -43,7 +43,6 @@ class FluxMonitor(Reader):
             pos_old =  pos.copy()
             # update selection
             valid = (pos>-skin)*(pos<skin)
-            sign_old = 2*(pos[valid]>0)-1.0
 
 
 
