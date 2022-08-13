@@ -32,6 +32,7 @@ class FluxMonitor(Reader):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array[:,0]
             id =  data.particles.identifiers.array
+            print("id_new", id)
             # print("pn",pos[valid])
             valid  =  valid *(np.absolute(pos-pos_old)<half_box)
 
