@@ -32,6 +32,7 @@ class FluxMonitor(Reader):
             # print("pn",pos[valid])
             valid  =  valid *(np.absolute(pos-pos_old)<half_box)
 
+            print(np.absolute(pos[valid]-pos_old[valid]).max())
             sign_old = 2*(pos_old[valid]>0)-1.0
             sign = 2*(pos[valid]>0)-1.0
             # print(sign)
