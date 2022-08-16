@@ -2,6 +2,7 @@ from analyser import Reader
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import h5py
 import tqdm
 matplotlib.use('Agg')
 
@@ -12,6 +13,7 @@ class DensityField2d(Reader):
         super().__init__(description)
         self.parser.add_argument("folder",type=str)
         self.parser.add_argument("--dl",type=float, default=1.0)
+        self.parser.add_argument("--hdf5",action='store_true')
         super().open_pipe()
 
     def compute(self, axis=2):
@@ -33,6 +35,11 @@ class DensityField2d(Reader):
         binningy = np.arange(oy,oy+Ly+dl, dl)
 
         # fg, ax = plt.subplots(figsize=(10,10))
+        if self.args.hdf5==True:
+            h5f = h5py.File(self.args.folder+'/hist-data.h5', 'w')
+            h5f.create_dataset('binning_x'%frame, data=binningx)
+            h5f.create_dataset('binning_y'%frame, data=binningy)
+
         for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array
@@ -51,5 +58,11 @@ class DensityField2d(Reader):
             plt.savefig(self.args.folder+"/frame%06d.png"%frame)
             plt.clf()
 
+            # write to file if requested
+            if self.args.hdf5==True:
+                h5f.create_dataset('frame_%d'%frame, data=H)
+
+        if self.args.hdf5==True:
+            h5f.close()
 D = DensityField2d()
 D.compute()
