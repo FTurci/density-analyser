@@ -37,8 +37,8 @@ class DensityField2d(Reader):
         # fg, ax = plt.subplots(figsize=(10,10))
         if self.args.hdf5==True:
             h5f = h5py.File(self.args.folder+'/hist-data.h5', 'w')
-            h5f.create_dataset('binning_x'%frame, data=binningx)
-            h5f.create_dataset('binning_y'%frame, data=binningy)
+            h5f.create_dataset('binning_x', data=binningx)
+            h5f.create_dataset('binning_y', data=binningy)
 
         for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
