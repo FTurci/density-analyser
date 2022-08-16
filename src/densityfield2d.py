@@ -39,7 +39,9 @@ class DensityField2d(Reader):
             H, xedge, yedge = np.histogram2d(pos[:,x], pos[:,y],bins=[binningx,binningy])
 
 
-            plt.imshow(H/(dl*dl*Lz), origin='lower', extent = [ox,ox+Lx,oy,oy+Ly])
+            plt.imshow(H/(dl*dl*Lz), origin ='lower', extent = [ox,ox+Lx,oy,oy+Ly],
+            vmin = 0 , vmax= 1.4
+            )
 
             plt.xlim(ox,ox+Lx)
             plt.ylim(oy,oy+Ly)
