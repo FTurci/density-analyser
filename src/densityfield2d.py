@@ -40,11 +40,13 @@ class DensityField2d(Reader):
 
 
             plt.imshow(H/(dl*dl*Lz), origin='lower', extent = [ox,ox+Lx,oy,oy+Ly])
-            plt.savefig(self.args.folder+"/frame%06d.png"%frame)
+
             plt.xlim(ox,ox+Lx)
             plt.ylim(oy,oy+Ly)
             plt.tight_layout()
+            plt.axis('equal')
             plt.colorbar()
+            plt.savefig(self.args.folder+"/frame%06d.png"%frame)
             plt.clf()
 
 D = DensityField2d()
