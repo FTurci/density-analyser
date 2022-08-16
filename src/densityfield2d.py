@@ -39,4 +39,4 @@ class DensityField2d(Reader):
             plt.clf()
 
 D = DensityField2d()
-D.compute()        
+D.compute()
