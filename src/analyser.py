@@ -52,11 +52,15 @@ class Reader:
             print(":v:",*args,**kwargs)
 
     def __del__(self):
-        if self.args.unzip==True and self.args.path.endswith(".gz"):
-            try:
-                os.remove(self.path)
-            except OSError:
-                pass
+        try:
+            if self.args.unzip==True and self.args.path.endswith(".gz"):
+                try:
+                    os.remove(self.path)
+                except OSError:
+                    pass
+        except Exception as e:
+            print("Quitting with exception:",e)
+
 
 
 class Quadrant(Reader):
