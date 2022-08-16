@@ -7,6 +7,7 @@ class DensityField2d(Reader):
     def __init__(self):
         description = self.__doc__
         super().__init__(description)
+        self.parser.add_argument(,"folder",type=str)
         self.parser.add_argument(,"--dl",type=float, default=1.0)
         super().open_pipe()
 
@@ -20,10 +21,21 @@ class DensityField2d(Reader):
         y = ax[1]
         data = self.pipe.compute(start)
         self.cell = data.cell[:]
-        binningx = np.arange(self.cell[x, -1],self.cell[x, -1]+self.cell[x,x]+self.args.dl, self.args.dl)
-        binningy = np.arange(self.cell[y, -1],self.cell[y, -1]+self.cell[y,y]+self.args.dl, self.args.dl)
+        ox,Lx = self.cell[x,-1],self.cell[x,x]
+        oy,Ly = self.cell[y,-1],self.cell[y,y]
+        binningx = np.arange(ox,ox+Lx+self.args.dl, self.args.dl)
+        binningy = np.arange(oy,oy+Ly+self.args.dl, self.args.dl)
 
+        fig,ax = plt.subplots(figsize=(6,6))
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             pos = data.positions.array
             H, xedge, yedge = np.histogram2d(pos[x], pos[y],bins=[binningx,binningy])
+
+
+            ax.imshow(H, origin='lower', extent = [ox,ox+Lx,oy,oy+Ly])
+            plt.axis('equal')
+            plt.savefig(self.args.folder+"/frame%06d.png"%frame)
+            plt.clf()
+
+        
