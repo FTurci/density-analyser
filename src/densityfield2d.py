@@ -44,7 +44,7 @@ class DensityField2d(Reader):
             plt.xlim(ox,ox+Lx)
             plt.ylim(oy,oy+Ly)
             plt.tight_layout()
-            plt.axis('equal')
+            # plt.axis('equal')
             plt.colorbar()
             plt.savefig(self.args.folder+"/frame%06d.png"%frame)
             plt.clf()
