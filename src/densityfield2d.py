@@ -32,7 +32,7 @@ class DensityField2d(Reader):
         for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array
-            H, xedge, yedge = np.histogram2d(pos[x], pos[y],bins=[binningx,binningy])
+            H, xedge, yedge = np.histogram2d(pos[:,x], pos[:,y],bins=[binningx,binningy])
 
 
             plt.imshow(H, origin='lower', extent = [ox,ox+Lx,oy,oy+Ly])
