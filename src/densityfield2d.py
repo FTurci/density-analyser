@@ -32,7 +32,7 @@ class DensityField2d(Reader):
         binningx = np.arange(ox,ox+Lx+dl, dl)
         binningy = np.arange(oy,oy+Ly+dl, dl)
 
-        fg, ax = plt.subplots(figsize=(10,10, aspect='equal')
+        fg, ax = plt.subplots(figsize=(10,10), aspect='equal')
         for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array
