@@ -27,6 +27,7 @@ class FluxMonitor(Reader):
         # print(pos[valid])
 
         fout = open(self.path+f".flux.skin{skin}.txt","w")
+        # TEMPORARY PATCH!
         half_box =  50.0
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
