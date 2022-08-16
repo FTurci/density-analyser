@@ -20,6 +20,7 @@ class FluxMonitor(Reader):
         # only the x-component is important (the barrier is in the yz plane)
         pos_old = data.particles.positions.array[:,0]
         id_old =  data.particles.identifiers.array
+        self.cell = data.cell[:]
         pos_old = pos_old[id_old.argsort()]
         id_old = id_old[id_old.argsort()]
         # take only particles that are close to the barrier (within a skin value)
@@ -27,8 +28,7 @@ class FluxMonitor(Reader):
         # print(pos[valid])
 
         fout = open(self.path+f".flux.skin{skin}.txt","w")
-        # TEMPORARY PATCH!
-        half_box =  50.0
+        half_box =  self.cell[0,0]/2.
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
             data = self.pipe.compute(frame)
