@@ -1,8 +1,9 @@
+import os
 os.environ["DISPLAY"] = ""
 import ovito
 import numpy as np
 import argparse
-import os
+
  # Note: on the cluster, you may need to set the variable DISPLAY="" for Ovito to work
 
 
