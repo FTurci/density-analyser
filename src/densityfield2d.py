@@ -38,4 +38,5 @@ class DensityField2d(Reader):
             plt.savefig(self.args.folder+"/frame%06d.png"%frame)
             plt.clf()
 
-        
+D = DensityField2d()
+D.compute()        
