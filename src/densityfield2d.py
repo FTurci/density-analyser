@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 matplotlib.use('Agg')
+
 class DensityField2d(Reader):
     """Project density and coarse grain over length dL"""
     def __init__(self):
