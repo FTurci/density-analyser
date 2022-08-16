@@ -2,7 +2,7 @@ from analyser import Reader
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-
+import tqdm
 matplotlib.use('Agg')
 
 class DensityField2d(Reader):
@@ -30,9 +30,9 @@ class DensityField2d(Reader):
         binningy = np.arange(oy,oy+Ly+self.args.dl, self.args.dl)
 
         fig,ax = plt.subplots(figsize=(6,6))
-        for frame in range(start, end, stride):
+        for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
-            pos = data.positions.array
+            pos = data.particles.positions.array
             H, xedge, yedge = np.histogram2d(pos[x], pos[y],bins=[binningx,binningy])
 
 
