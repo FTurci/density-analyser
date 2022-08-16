@@ -32,20 +32,21 @@ class DensityField2d(Reader):
         binningx = np.arange(ox,ox+Lx+dl, dl)
         binningy = np.arange(oy,oy+Ly+dl, dl)
 
-        plt.figure(figsize=(10,10))
+        fg, ax = plt.subplots(figsize=(10,10, aspect='equal')
         for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array
             H, xedge, yedge = np.histogram2d(pos[:,x], pos[:,y],bins=[binningx,binningy])
 
 
-            plt.imshow(H/(dl*dl*Lz), origin='lower', extent = [ox,ox+Lx,oy,oy+Ly])
-            plt.axis('equal')
+            img = plt.imshow(H/(dl*dl*Lz), origin='lower', extent = [ox,ox+Lx,oy,oy+Ly])
+
+
             plt.savefig(self.args.folder+"/frame%06d.png"%frame)
             plt.xlim(ox,ox+Lx)
             plt.ylim(oy,oy+Ly)
             plt.tight_layout()
-            plt.colorbar()
+            plt.colorbar(img, cax = ax)
             plt.clf()
 
 D = DensityField2d()
