@@ -15,8 +15,8 @@ class HeighFluctuations(analyser.Reader):
         end = self.args.end
         stride = self.args.stride
 
-        self.pipe.modifers.append(
-            ovito.modifers.CoordinationAnalysisModifier(
+        self.pipe.modifiers.append(
+            ovito.modifiers.CoordinationAnalysisModifier(
             cutoff=cutoff
             )
         )
