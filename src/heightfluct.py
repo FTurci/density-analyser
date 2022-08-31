@@ -20,7 +20,7 @@ class HeighFluctuations(analyser.Reader):
             cutoff=cutoff
             )
         )
-
+        heights = []
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
 
@@ -35,5 +35,8 @@ class HeighFluctuations(analyser.Reader):
             x = pos[valid,0]
             height, edges, binnumber = binned_statistic_dd(yz,x,statistic='min')
 
-            print(height)
-            print(height.mean())
+            # print(height)
+            # print(height.mean())
+            heights.append(height)
+
+        self.heights = heights
