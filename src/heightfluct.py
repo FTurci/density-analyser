@@ -14,8 +14,6 @@ class HeighFluctuations(analyser.Reader):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        if self.args.tofile != None:
-            fopen = open(self.args.tofile,"w")
 
         self.pipe.modifers.append(
             ovito.modifers.CoordinationAnalysisModifier(
