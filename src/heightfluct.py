@@ -28,11 +28,11 @@ class HeighFluctuations(analyser.Reader):
             print(data.particles['Coordination'])
             coordination = data.particles['Coordination'].array
             local_density = coordination/(4/3.*np.pi*cutoff**3)
+
+            # only upper half
+            valid = (local_density < threshold)*(pos[:,0]>0)
             yz = pos[valid,1:]
             x = pos[valid,0]
-            # only upper half
-            valid = (local_density < threshold)*(x>0)
-
             height, edges, binnumber = binned_statistic_dd(yz,x,statistic='min')
 
             print(height)
