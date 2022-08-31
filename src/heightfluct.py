@@ -31,7 +31,7 @@ class HeighFluctuations(analyser.Reader):
             valid = local_density < threshold
             yz = pos[valid,1:]
             x = pos[valid,0]
-            height, edges, binnumber = binned_statistic_dd(zy,x,statistic='min')
+            height, edges, binnumber = binned_statistic_dd(yz,x,statistic='min')
 
             print(height)
             print(height.mean())
