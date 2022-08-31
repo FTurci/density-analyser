@@ -1,7 +1,7 @@
 import analyser
 import ovito
 from scipy.stats import binned_statistic_dd
-
+import numpy as np
 class HeighFluctuations(analyser.Reader):
     """Compute heigh fluctuations at the barrier"""
     def __init__(self,):
