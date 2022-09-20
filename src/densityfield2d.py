@@ -38,7 +38,7 @@ class DensityField2d(Reader):
         # fg, ax = plt.subplots(figsize=(10,10))
         if self.args.hdf5==True:
             h5f = h5py.File(self.args.folder+f'/hist-data-dl{dl}.h5', 'w')
-            # hf5.create_dataset('Ls', data=[Lx,Ly,Lz])
+            h5f.create_dataset('Ls', data=[Lx,Ly,Lz])
             h5f.create_dataset('binning_x', data=binningx)
             h5f.create_dataset('binning_y', data=binningy)
 
