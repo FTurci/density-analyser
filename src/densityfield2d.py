@@ -14,6 +14,7 @@ class DensityField2d(Reader):
         self.parser.add_argument("folder",type=str)
         self.parser.add_argument("--dl",type=float, default=1.0)
         self.parser.add_argument("--hdf5",action='store_true')
+        self.parser.add_argument("--average",action='store_true')
         super().open_pipe()
 
     def compute(self, axis=2):
@@ -37,8 +38,10 @@ class DensityField2d(Reader):
         # fg, ax = plt.subplots(figsize=(10,10))
         if self.args.hdf5==True:
             h5f = h5py.File(self.args.folder+f'/hist-data-dl{dl}.h5', 'w')
+            hf5.create_dataset('Ls', data=[Lx,Ly,Lz])
             h5f.create_dataset('binning_x', data=binningx)
             h5f.create_dataset('binning_y', data=binningy)
+
 
         for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
@@ -64,5 +67,7 @@ class DensityField2d(Reader):
 
         if self.args.hdf5==True:
             h5f.close()
+
+
 D = DensityField2d()
 D.compute()

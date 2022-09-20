@@ -25,7 +25,6 @@ class HeighFluctuations(analyser.Reader):
             data = self.pipe.compute(frame)
 
             pos = data.particles.positions.array
-            print(data.particles['Coordination'])
             coordination = data.particles['Coordination'].array
             local_density = coordination/(4/3.*np.pi*cutoff**3)
 
