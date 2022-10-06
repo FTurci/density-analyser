@@ -3,6 +3,8 @@ import ovito
 from scipy.stats import binned_statistic_dd
 import numpy as np
 import matplotlib.pyplot as plt
+matplotlib.use('Agg')
+
 
 class LDfluct(analyser.Reader):
     """Compute LD fluctuations within HD phase"""
@@ -65,7 +67,7 @@ class LDfluct(analyser.Reader):
 
             plt.hist(sizes)
             plt.savefig("sizes.png")
-            input("keystroke:")
+            input("    keystroke:")
 
             # print(dir(clusters))
 ld = LDfluct()
