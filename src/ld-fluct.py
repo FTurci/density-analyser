@@ -63,7 +63,8 @@ class LDfluct(analyser.Reader):
             radius = clusters['Radius of Gyration'].array
             com = clusters['Center of Mass'].array
 
-
+            plt.hist(sizes)
+            plt.savefig("sizes.png")
 
             # print(dir(clusters))
 ld = LDfluct()
