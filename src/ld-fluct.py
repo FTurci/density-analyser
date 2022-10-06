@@ -63,8 +63,11 @@ class LDfluct(analyser.Reader):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
             sizes = clusters['Cluster Size'].array
-            radius = clusters['Radius of Gyration'].array
-            com = clusters['Center of Mass'].array
+            valid = sizes>2
+
+            radius = clusters['Radius of Gyration'].array[valid]
+            com = clusters['Center of Mass'].array[valid]
+            valid_sizes = sizes[valid]
 
             plt.hist(sizes)
             plt.savefig("sizes.png")
