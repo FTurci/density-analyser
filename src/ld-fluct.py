@@ -17,7 +17,7 @@ class LDfluct(analyser.Reader):
         super().__init__(description)
         self.parser.add_argument("--threshold",type=int, default=40.0)
         self.parser.add_argument("--coordcutoff",type=float, default=2.0)
-        self.parser.add_argument("--clustcutoff",type=float, default=1.2)
+        self.parser.add_argument("--clustcutoff",type=float, default=1.3)
         self.parser.add_argument("--copyhere",action='store_true')
         super().open_pipe()
 
@@ -82,6 +82,12 @@ class LDfluct(analyser.Reader):
         h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('sizes', data=np.array(accumulate['sizes']))
         h5f.create_dataset('radii', data=np.array(accumulate['radii']))
+        h5f.create_dataset('params', data=
+            {'threshold':self.args.threshold,
+            'coordcutoff':self.args.coordcutoff,
+            'clustcutoff':self.args.clustcutoff
+            }
+            )
         h5f.close()
         if self.args.copyhere:
             import os
