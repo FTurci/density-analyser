@@ -78,7 +78,7 @@ class LDfluct(analyser.Reader):
             # print(dir(clusters))
 
 
-        h5path = path+".ld.clusters.analysis.h5"
+        h5path = self.args.path+".ld.clusters.analysis.h5"
         h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('sizes', data=np.array(accumulate['sizes']))
         h5f.create_dataset('radii', data=np.array(accumulate['radii']))
