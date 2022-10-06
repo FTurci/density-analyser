@@ -43,10 +43,10 @@ class LDfluct(analyser.Reader):
             compute_com=True,
             compute_gyration=True)
         )
-        
+
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
-            clusters = cata.tables['clusters']
+            clusters = data.tables['clusters']
             print(clusters)
 
 
