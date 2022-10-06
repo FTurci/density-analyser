@@ -72,5 +72,7 @@ class LDfluct(analyser.Reader):
             # input("    keystroke:")
 
             # print(dir(clusters))
+        plt.hist(accumulate['radii'], bins=32)
+        plt.savefig('radii.png')
 ld = LDfluct()
 ld.compute()
