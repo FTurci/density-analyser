@@ -2,9 +2,12 @@ import analyser
 import ovito
 from scipy.stats import binned_statistic_dd
 import numpy as np
+import tqdm
 import matplotlib.pyplot as plt
 import matplotlib
+
 matplotlib.use('Agg')
+
 
 
 class LDfluct(analyser.Reader):
@@ -49,7 +52,7 @@ class LDfluct(analyser.Reader):
         )
 
         accumulate = {'sizes':[],'radii':[]}
-        for frame in range(start, end, stride):
+        for frame in tqdm.tqdm(range(start, end, stride)):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
             sizes = clusters['Cluster Size'].array
