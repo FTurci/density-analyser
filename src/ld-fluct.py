@@ -62,7 +62,8 @@ class LDfluct(analyser.Reader):
 
             plt.hist(valid_sizes)
             # print(valid_sizes)
-            print(valid_sizes.mean())
+            # print(valid_sizes.mean())
+            print(radius.mean())
             # print(sizes)
             # plt.savefig("sizes.png")
             # input("    keystroke:")
