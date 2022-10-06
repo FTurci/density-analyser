@@ -83,10 +83,12 @@ class LDfluct(analyser.Reader):
         h5f.create_dataset('sizes', data=np.array(accumulate['sizes']))
         h5f.create_dataset('radii', data=np.array(accumulate['radii']))
         h5f.create_dataset('params', data=
+            str(
             {'threshold':self.args.threshold,
             'coordcutoff':self.args.coordcutoff,
             'clustcutoff':self.args.clustcutoff
             }
+            )
             )
         h5f.close()
         if self.args.copyhere:
