@@ -75,8 +75,9 @@ class LDfluct(analyser.Reader):
             # input("    keystroke:")
 
             # print(dir(clusters))
-        plt.hist(accumulate['radii'], bins=32)
+        plt.hist(accumulate['radii'], bins=32,density=True)
         plt.title("mean radius ="+str(np.mean(accumulate['radii'])))
+        plt.yscale('log')
         plt.savefig('radii.png')
 ld = LDfluct()
 ld.compute()
