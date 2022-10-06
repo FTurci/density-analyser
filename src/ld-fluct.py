@@ -47,7 +47,7 @@ class LDfluct(analyser.Reader):
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
-            print(clusters)
+            print(clusters['Cluster Size'])
 
 
 ld = LDfluct()
