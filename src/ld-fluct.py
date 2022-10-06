@@ -2,6 +2,7 @@ import analyser
 import ovito
 from scipy.stats import binned_statistic_dd
 import numpy as np
+import matplotlib.pyplot as plt
 
 class LDfluct(analyser.Reader):
     """Compute LD fluctuations within HD phase"""
@@ -58,8 +59,12 @@ class LDfluct(analyser.Reader):
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
-            print(clusters['Cluster Size'].array)
+            sizes = clusters['Cluster Size'].array
+            radius = clusters['Radius of Gyration'].array
+            com = clusters['Center of Mass'].array
 
-            print(dir(clusters))
+
+
+            # print(dir(clusters))
 ld = LDfluct()
 ld.compute()
