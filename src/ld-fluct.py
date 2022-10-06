@@ -18,7 +18,7 @@ class LDfluct(analyser.Reader):
         self.parser.add_argument("--threshold",type=int, default=40.0)
         self.parser.add_argument("--coordcutoff",type=float, default=2.0)
         self.parser.add_argument("--clustcutoff",type=float, default=1.2)
-        parser.add_argument("--copy-here",action='store_true')
+        parser.add_argument("--copyhere",action='store_true')
         super().open_pipe()
 
 
@@ -78,11 +78,15 @@ class LDfluct(analyser.Reader):
             # print(dir(clusters))
 
 
-
-        h5f = h5py.File(path+".ld.clusters.analysis.h5", 'w')
+        h5path = path+".ld.clusters.analysis.h5"
+        h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('sizes', data=np.array(accumulate['sizes']))
         h5f.create_dataset('radii', data=np.array(accumulate['radii']))
         h5f.close()
+        if self.args.copyhere:
+            import os
+            os.system(f"cp "+h5path+" .")
+
         # plt.hist(accumulate['radii'], bins=32,density=True)
         # plt.title("mean radius ="+str(np.mean(accumulate['radii'])))
         # plt.yscale('log')
