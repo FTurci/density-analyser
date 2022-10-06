@@ -61,10 +61,11 @@ class LDfluct(analyser.Reader):
             valid_sizes = sizes[valid]
 
             plt.hist(valid_sizes)
-            print(valid_sizes)
-            print(sizes)
-            plt.savefig("sizes.png")
-            input("    keystroke:")
+            # print(valid_sizes)
+            print(valid_sizes.mean())
+            # print(sizes)
+            # plt.savefig("sizes.png")
+            # input("    keystroke:")
 
             # print(dir(clusters))
 ld = LDfluct()
