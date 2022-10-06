@@ -13,8 +13,8 @@ class LDfluct(analyser.Reader):
         description = self.__doc__
         super().__init__(description)
         self.parser.add_argument("--threshold",type=int, default=40.0)
-        self.parser.add_argument("--coordcutoff",type=int, default=2.0)
-        self.parser.add_argument("--clustcutoff",type=int, default=1.2)
+        self.parser.add_argument("--coordcutoff",type=float, default=2.0)
+        self.parser.add_argument("--clustcutoff",type=float, default=1.2)
         super().open_pipe()
 
 
