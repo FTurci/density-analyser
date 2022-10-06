@@ -48,22 +48,13 @@ class LDfluct(analyser.Reader):
             compute_gyration=True)
         )
 
-        # remove largest cluster
-        self.pipe.modifiers.append(ovito.modifiers.ExpressionSelectionModifier
-            (
-            expression = f"Cluster==1"
-            )
-        )
-
-        self.pipe.modifiers.append(
-            ovito.modifiers.DeleteSelectedModifier()
-        )
 
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
             sizes = clusters['Cluster Size'].array
-            valid = sizes>2
+            # ignore largest and smallest clusters
+            valid = (sizes>2)*(sizes<sizes[0])
 
             radius = clusters['Radius of Gyration'].array[valid]
             com = clusters['Center of Mass'].array[valid]
