@@ -48,7 +48,7 @@ class LDfluct(analyser.Reader):
             compute_gyration=True)
         )
 
-
+        accumulate = {'sizes':[],'radii':[]}
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
@@ -56,14 +56,17 @@ class LDfluct(analyser.Reader):
             # ignore largest and smallest clusters
             valid = (sizes>2)*(sizes<sizes[0])
 
-            radius = clusters['Radius of Gyration'].array[valid]
-            com = clusters['Center of Mass'].array[valid]
+            radii = clusters['Radius of Gyration'].array[valid]
+            coms = clusters['Center of Mass'].array[valid]
             valid_sizes = sizes[valid]
 
-            plt.hist(valid_sizes)
+            accumulate['sizes'] += list(valid_sizes)
+            accumulate['radii'] += list(radii)
+
+            # plt.hist(valid_sizes)
             # print(valid_sizes)
             # print(valid_sizes.mean())
-            print(radius.mean())
+            # print(radii.mean())
             # print(sizes)
             # plt.savefig("sizes.png")
             # input("    keystroke:")
