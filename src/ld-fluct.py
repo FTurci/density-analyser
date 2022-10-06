@@ -8,23 +8,30 @@ class LDfluct(analyser.Reader):
     def __init__(self,):
         description = self.__doc__
         super().__init__(description)
+        self.parser.add_argument("--threshold",type=int, default=40.0)
+        self.parser.add_argument("--coordcutoff",type=int, default=2.0)
+        self.parser.add_argument("--clustcutoff",type=int, default=1.2)
         super().open_pipe()
 
 
-    def compute(self, threshold,binsize,coordcutoff,clustcutoff):
+    def compute(self):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        self.coordcutoff = coordcutoff
-        self.clustcutoff = clustcutoff
+        coordcutoff = self.args.coordcutoff
+        clustcutoff = self.args.clustcutoff
 
 
         self.pipe.modifiers.append(
             ovito.modifiers.CoordinationAnalysisModifier(
-            coordcutoff=self.coordcutoff
+            cutoff=coordcutoff
             )
         )
-
+        self.pipe.modifiers.append(ovito.modifiers.ExpressionSelectionModifier
+            (
+            expression = f"Coordination>{self.args.threshold}"
+            )
+        )
         self.pipe.modifiers.append(
             ovito.modifiers.DeleteSelectedModifier()
         )
@@ -36,8 +43,12 @@ class LDfluct(analyser.Reader):
             compute_com=True,
             compute_gyration=True)
         )
-        heights = []
+        
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             clusters = cata.tables['clusters']
             print(clusters)
+
+
+ld = LDfluct()
+ld.compute()
