@@ -65,6 +65,7 @@ class LDfluct(analyser.Reader):
 
             plt.hist(sizes)
             plt.savefig("sizes.png")
+            input("keystroke:")
 
             # print(dir(clusters))
 ld = LDfluct()
