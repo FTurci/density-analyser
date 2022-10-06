@@ -3,6 +3,7 @@ import ovito
 from scipy.stats import binned_statistic_dd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 matplotlib.use('Agg')
 
 
