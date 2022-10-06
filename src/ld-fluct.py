@@ -69,7 +69,8 @@ class LDfluct(analyser.Reader):
             com = clusters['Center of Mass'].array[valid]
             valid_sizes = sizes[valid]
 
-            plt.hist(sizes)
+            plt.hist(valid_sizes)
+            print(valid_sizes)
             plt.savefig("sizes.png")
             input("    keystroke:")
 
