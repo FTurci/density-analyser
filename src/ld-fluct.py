@@ -44,11 +44,22 @@ class LDfluct(analyser.Reader):
             compute_gyration=True)
         )
 
+        # remove largest cluster
+        self.pipe.modifiers.append(ovito.modifiers.ExpressionSelectionModifier
+            (
+            expression = f"Cluster==1"
+            )
+        )
+
+        self.pipe.modifiers.append(
+            ovito.modifiers.DeleteSelectedModifier()
+        )
+
         for frame in range(start, end, stride):
             data = self.pipe.compute(frame)
             clusters = data.tables['clusters']
             print(clusters['Cluster Size'].array)
 
-
+            print(dir(clusters))
 ld = LDfluct()
 ld.compute()
