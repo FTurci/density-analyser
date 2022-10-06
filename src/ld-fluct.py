@@ -71,6 +71,7 @@ class LDfluct(analyser.Reader):
 
             plt.hist(valid_sizes)
             print(valid_sizes)
+            print(sizes)
             plt.savefig("sizes.png")
             input("    keystroke:")
 
