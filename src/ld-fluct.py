@@ -79,7 +79,9 @@ class LDfluct(analyser.Reader):
 
 
         h5f = h5py.File(path+".ld.clusters.analysis.h5", 'w')
-
+        h5f.create_dataset('sizes', data=np.array(accumulate['sizes']))
+        h5f.create_dataset('radii', data=np.array(accumulate['radii']))
+        h5f.close()
         # plt.hist(accumulate['radii'], bins=32,density=True)
         # plt.title("mean radius ="+str(np.mean(accumulate['radii'])))
         # plt.yscale('log')
