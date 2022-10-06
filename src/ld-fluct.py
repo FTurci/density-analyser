@@ -80,8 +80,8 @@ class LDfluct(analyser.Reader):
 
         h5path = self.args.path+".ld.clusters.analysis.h5"
         h5f = h5py.File(h5path, 'w')
-        h5f.create_dataset('sizes', data=np.flatten(np.array(accumulate['sizes'])))
-        h5f.create_dataset('radii', data=np.flatten(np.array(accumulate['radii'])))
+        h5f.create_dataset('sizes', data=np.array(accumulate['sizes']))
+        h5f.create_dataset('radii', data=np.array(accumulate['radii']))
         h5f.attrs.update(
             {'threshold':self.args.threshold,
             'coordcutoff':self.args.coordcutoff,
