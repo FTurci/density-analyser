@@ -18,6 +18,7 @@ class LDfluct(analyser.Reader):
         self.parser.add_argument("--threshold",type=int, default=40.0)
         self.parser.add_argument("--coordcutoff",type=float, default=2.0)
         self.parser.add_argument("--clustcutoff",type=float, default=1.2)
+        parser.add_argument("--copy-here",action='store_true')
         super().open_pipe()
 
 
