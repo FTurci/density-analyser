@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import h5py
 from stringato import num_word
+
 matplotlib.use('Agg')
 
 
@@ -40,7 +41,10 @@ class CentreOfMass(analyser.Reader):
         h5f.create_dataset('coms', data=coms)
         h5f.create_dataset('radii', data=msd)
         h5f.close()
-        print(num_word("eps",self.args.path),"MSD/niterations = ", msd[-1]/len(msd))
+
+        iters = np.arange(len(msd))
+        p,cov = np.polyfit(iters,msd,1,cov=True)
+        print(num_word("eps",self.args.path),"MSD/niterations = ",p[0])
 
         if self.args.copyhere:
             import os
