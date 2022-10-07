@@ -45,7 +45,7 @@ class CentreOfMass(analyser.Reader):
         h5path = self.args.path+".com.analysis.h5"
         h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('coms', data=coms)
-        h5f.create_dataset('radii', data=msd)
+        h5f.create_dataset('msd', data=msd)
         h5f.create_dataset('activity', data=activity)
         h5f.close()
 
