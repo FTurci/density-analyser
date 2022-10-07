@@ -41,6 +41,7 @@ class CentreOfMass(analyser.Reader):
 
         coms = np.array(coms)
         msd = np.sum((coms-coms[0])**2, axis=1)
+        activity = np.mean(np.sum(np.diff(coms, axis=0)**2, axis=0))
         h5path = self.args.path+".com.analysis.h5"
         h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('coms', data=coms)
@@ -50,7 +51,7 @@ class CentreOfMass(analyser.Reader):
         iters = np.arange(len(msd))
         p,cov = np.polyfit(iters,msd,1,cov=True)
         # print("MSD/niterations = ",num_word("eps",self.args.path),p[0], np.sqrt(cov[0,0]))
-        print(num_word("eps",self.args.path), msd.var(), msd.mean())
+        print(num_word("eps",self.args.path), msd.var(), msd.mean(),activity)
         np.savetxt("msd.txt",list(zip(iters,msd)))
         if self.args.copyhere:
             import os
