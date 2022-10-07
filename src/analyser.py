@@ -25,11 +25,17 @@ class Reader:
         parser.add_argument("--stride", default=1,type=int)
         parser.add_argument("-v","--verbose",action='store_true')
         parser.add_argument("--unzip",action='store_true')
+        parser.add_argument("--zcat",action='store_true')
         self.parser = parser
 
     def open_pipe(self):
         self.args = self.parser.parse_args()
 
+        if self.args.zcat==True:
+            print("Zcatting...", end="", flush=True)
+            os.system("zcat "+self.args.path+" > dummy.atom")
+            os.system("gzip -c dummy.atom >"+self.args.path)
+            print("done.")
         if self.args.unzip==True and self.args.path.endswith(".gz"):
             print("Unzipping...", end="", flush=True)
             os.system("gunzip -k "+self.args.path)
