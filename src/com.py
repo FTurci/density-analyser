@@ -44,7 +44,7 @@ class CentreOfMass(analyser.Reader):
 
         iters = np.arange(len(msd))
         p,cov = np.polyfit(iters,msd,1,cov=True)
-        print(num_word("eps",self.args.path),"MSD/niterations = ",p[0])
+        print(num_word("eps",self.args.path),"MSD/niterations = ",p[0], np.sqrt(cov[0,0]))
 
         if self.args.copyhere:
             import os
