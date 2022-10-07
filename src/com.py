@@ -18,6 +18,7 @@ class CentreOfMass(analyser.Reader):
         description = self.__doc__
         super().__init__(description)
         self.parser.add_argument("--copyhere",action='store_true')
+        self.parser.add_argument("--tqdm",action='store_true')
         super().open_pipe()
 
 
@@ -28,7 +29,11 @@ class CentreOfMass(analyser.Reader):
 
         accumulate = {'sizes':[],'radii':[]}
         coms = []
-        for frame in tqdm.tqdm(range(start, end, stride)):
+        if self.args.tqdm:
+            progress = tqdm.tqdm
+        else:
+            progress = lambda x:x
+        for frame in (range(start, end, stride)):
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array
             com = pos.mean(axis=0)
