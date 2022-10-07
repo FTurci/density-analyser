@@ -31,10 +31,10 @@ class Reader:
     def open_pipe(self):
         self.args = self.parser.parse_args()
 
-        if self.args.zcat==True:
+        if self.args.zcat==True and self.args.path.endswith(".gz"):
             print("Zcatting...", end="", flush=True)
             os.system("zcat "+self.args.path+" > dummy.atom")
-            os.system("gzip -c dummy.atom >"+self.args.path)
+            os.system("gzip -c dummy.atom > "+self.args.path)
             print("done.")
         if self.args.unzip==True and self.args.path.endswith(".gz"):
             print("Unzipping...", end="", flush=True)
