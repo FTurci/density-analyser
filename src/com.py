@@ -39,9 +39,10 @@ class CentreOfMass(analyser.Reader):
         h5f.create_dataset('coms', data=coms)
         h5f.create_dataset('radii', data=msd)
         h5f.close()
+
         if self.args.copyhere:
             import os
             os.system(f"cp "+h5path+" .")
 
-ld = LDfluct()
-ld.compute()
+cm = CentreOfMass()
+cm.compute()
