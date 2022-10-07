@@ -33,7 +33,7 @@ class CentreOfMass(analyser.Reader):
             coms.append(com)
 
         coms = np.array(coms)
-        msd = (coms-coms[0])**2
+        msd = np.sum((coms-coms[0])**2, axis=1)
         h5path = self.args.path+".com.analysis.h5"
         h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('coms', data=coms)
