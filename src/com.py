@@ -46,6 +46,7 @@ class CentreOfMass(analyser.Reader):
         h5f = h5py.File(h5path, 'w')
         h5f.create_dataset('coms', data=coms)
         h5f.create_dataset('radii', data=msd)
+        h5f.create_dataset('activity', data=activity)
         h5f.close()
 
         iters = np.arange(len(msd))
