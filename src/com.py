@@ -39,6 +39,7 @@ class CentreOfMass(analyser.Reader):
         h5f.create_dataset('coms', data=coms)
         h5f.create_dataset('radii', data=msd)
         h5f.close()
+        print("MSD/niterations = ", msd[-1]/len(msd))
 
         if self.args.copyhere:
             import os
