@@ -11,7 +11,7 @@ matplotlib.use('Agg')
 
 
 class CentreOfMass(analyser.Reader):
-    """Compute LD fluctuations within HD phase"""
+    """Compute the motion of the centre of mass."""
     def __init__(self,):
         description = self.__doc__
         super().__init__(description)
