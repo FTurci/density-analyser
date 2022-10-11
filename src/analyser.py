@@ -33,7 +33,7 @@ class Reader:
 
         if self.args.zcat==True and self.args.path.endswith(".gz"):
             print("Zcatting...", end="", flush=True)
-            os.system("zcat "+self.args.path+" > dummy.atom")
+            os.system("zcat "+self.args.path+f" > {self.args.path[:-3]}")
             # os.system("gzip -c dummy.atom > "+self.args.path)
             # print("done.")
             self.args.path = self.args.path[:-3]
