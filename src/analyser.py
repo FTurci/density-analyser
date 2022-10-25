@@ -164,4 +164,4 @@ class LateralProfile(Reader):
                 normalisation = 1
 
             self.asymmetry = asymmetry(self.avg_rho_profile,self.x,normalisation)
-            print("asymmetry", self.asymmetry)
+            # print("asymmetry", self.asymmetry)
