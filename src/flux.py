@@ -80,7 +80,7 @@ class LocalFlux(Reader):
         stride = self.args.stride
         bin = self.args.bin
 
-        bxs, byz, bzs = [], [], []
+        bxs, bys, bzs = [], [], []
         nums = []
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
