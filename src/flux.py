@@ -64,11 +64,12 @@ class LocalFlux(Reader):
     def __init__(self):
         description="Check the flow of particles across the barrier."
         super().__init__(description)
-        self.parser.add_argument("-s","--skin",type=float, default=5.0)
+        self.parser.add_argument("-b","--bin",type=float, default=5.0)
         super().open_pipe()
         self.pipe.modifiers.append(ovito.modifiers.CalculateDisplacementsModifier(
         use_frame_offset=True,
-        frame_offset = -1))
+        frame_offset = -1,
+        minimum_image_convention=True))
 
     def compute(self):
         start = self.args.start
@@ -81,8 +82,9 @@ class LocalFlux(Reader):
             data = self.pipe.compute(frame)
             # pos = data.particles.positions.array[:,0]
             # id =  data.particles.identifiers.array
-            print(data.particles['Displacement'].array)
-
+            dispv = data.particles['Displacement'].array
+            dispm = dispv = data.particles['Displacement Magnitude'].array
+            print(dism.min(), dispm.mean(), dispm.max())
 
 # F = FluxMonitor()
 # F.compute()
