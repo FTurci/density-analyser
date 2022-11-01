@@ -91,7 +91,9 @@ class LocalFlux(Reader):
             dy = dispv[:,1]
             dz = dispv[:,2]
 
-            bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum')pplt.imshow(bx.mean(axis=2))
+            bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum')
+            
+            plt.imshow(bx.mean(axis=2))
             plt.colorbar()
             plt.savefig(f"frame{frame}.png")
             # check on what facet of the local cuboid the displacement has occurred
