@@ -75,7 +75,7 @@ class LocalFlux(Reader):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        skin = self.args.skin
+        bin = self.args.bin
 
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
