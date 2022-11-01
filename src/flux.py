@@ -1,7 +1,9 @@
 from analyser import Reader
 import numpy as np
 import ovito
+from scipy import stats
 
+import matplotlib.pyplot as plt
 class FluxMonitor(Reader):
     """Monitor flux of particles. Using argparse to parse arguments"""
     def __init__(self):
@@ -80,11 +82,19 @@ class LocalFlux(Reader):
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
             data = self.pipe.compute(frame)
-            # pos = data.particles.positions.array[:,0]
+            pos = data.particles.positions.array
             # id =  data.particles.identifiers.array
             dispv = data.particles['Displacement'].array
             dispm = dispv = data.particles['Displacement Magnitude'].array
             print(dispm.min(), dispm.mean(), dispm.max())
+            dx = dispv[:,0]
+            dy = dispv[:,1]
+            dz = dispv[:,2]
+
+            bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum')pplt.imshow(bx.mean(axis=2))
+            plt.savefig(f"frame{frame}.png")
+            # check on what facet of the local cuboid the displacement has occurred
+
 
 # F = FluxMonitor()
 # F.compute()
