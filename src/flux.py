@@ -100,6 +100,12 @@ class LocalFlux(Reader):
             plt.colorbar()
             plt.savefig(f"frame{frame}.png")
             plt.close()
+            # check that the density is correct
+            num,_,_ = stats.binned_statistic_dd(pos,np.ones(pos.shape[0]),statistic='sum',bins=50)
+            plt.imshow(bx.mean(axis=2))
+            plt.colorbar()
+            plt.savefig(f"num{frame}.png")
+            plt.close()
             # check on what facet of the local cuboid the displacement has occurred
 
 
