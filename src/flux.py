@@ -1,5 +1,6 @@
 from analyser import Reader
 import numpy as np
+import ovito
 
 class FluxMonitor(Reader):
     """Monitor flux of particles. Using argparse to parse arguments"""
@@ -8,6 +9,7 @@ class FluxMonitor(Reader):
         super().__init__(description)
         self.parser.add_argument("-s","--skin",type=float, default=5.0)
         super().open_pipe()
+
 
     def compute(self):
         start = self.args.start
@@ -57,5 +59,30 @@ class FluxMonitor(Reader):
 
 
 
-F = FluxMonitor()
-F.compute()
+class LocalFlux(Reader):
+    """Monitor local flux of particles. Using argparse to parse arguments"""
+    def __init__(self):
+        description="Check the flow of particles across the barrier."
+        super().__init__(description)
+        self.parser.add_argument("-s","--skin",type=float, default=5.0)
+        super().open_pipe()
+        self.pipe.modifiers.append(ovito.modifiers.CalculateDisplacementsModifier(
+        use_frame_offset=True,
+        frame_offset = -1))
+
+    def compute(self):
+        start = self.args.start
+        end = self.args.end
+        stride = self.args.stride
+        skin = self.args.skin
+
+        for frame in range(start+1, end, stride):
+            # print("po",pos[valid])
+            data = self.pipe.compute(frame)
+            # pos = data.particles.positions.array[:,0]
+            # id =  data.particles.identifiers.array
+            print(data.particles.displacements.array)
+
+
+# F = FluxMonitor()
+# F.compute()
