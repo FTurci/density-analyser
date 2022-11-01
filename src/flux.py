@@ -85,6 +85,7 @@ class LocalFlux(Reader):
             pos = data.particles.positions.array
             # id =  data.particles.identifiers.array
             dispv = data.particles['Displacement'].array
+            print(dispv)
             dispm = dispv = data.particles['Displacement Magnitude'].array
             print(dispm.min(), dispm.mean(), dispm.max())
             dx = dispv[:,0]
@@ -92,7 +93,7 @@ class LocalFlux(Reader):
             dz = dispv[:,2]
 
             bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum')
-            
+
             plt.imshow(bx.mean(axis=2))
             plt.colorbar()
             plt.savefig(f"frame{frame}.png")
