@@ -80,6 +80,8 @@ class LocalFlux(Reader):
         stride = self.args.stride
         bin = self.args.bin
 
+        bxs = []
+        nums = []
         for frame in range(start+1, end, stride):
             # print("po",pos[valid])
             data = self.pipe.compute(frame)
@@ -95,17 +97,22 @@ class LocalFlux(Reader):
             dz = dispv[:,2]
 
             bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum',bins=50)
+            bxs.append(bx)
 
-            plt.imshow(bx.mean(axis=2))
-            plt.colorbar()
-            plt.savefig(f"frame{frame}.png")
-            plt.close()
             # check that the density is correct
             num,_,_ = stats.binned_statistic_dd(pos,np.ones(pos.shape[0]),statistic='sum',bins=50)
-            plt.imshow(num.mean(axis=2))
-            plt.colorbar()
-            plt.savefig(f"num{frame}.png")
-            plt.close()
+            nums.append(num)
+
+        mbx  = np.mean(bxs, axis=0)
+        mnum  = np.mean(nums, axis=0)
+        plt.imshow(mbx.mean(axis=2))
+        plt.colorbar()
+        plt.savefig(f"frame.png")
+        plt.close()
+        plt.imshow(nums.mean(axis=2))
+        plt.colorbar()
+        plt.savefig(f"num.png")
+        plt.close()
             # check on what facet of the local cuboid the displacement has occurred
 
 
