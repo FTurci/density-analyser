@@ -4,6 +4,7 @@ import ovito
 from scipy import stats
 
 import matplotlib.pyplot as plt
+
 class FluxMonitor(Reader):
     """Monitor flux of particles. Using argparse to parse arguments"""
     def __init__(self):
@@ -86,18 +87,18 @@ class LocalFlux(Reader):
             # id =  data.particles.identifiers.array
             dispv = data.particles['Displacement'].array
             print(dispv.shape)
-            # dispm = dispv = data.particles['Displacement Magnitude'].array
-            # print(dispm.min(), dispm.mean(), dispm.max())
-            print(dispv[:])
+            dispm  = data.particles['Displacement Magnitude'].array
+            print(dispm.min(), dispm.mean(), dispm.max())
+
             dx = dispv[:,0]
             dy = dispv[:,1]
             dz = dispv[:,2]
 
             bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum')
 
-            # plt.imshow(bx.mean(axis=2))
-            # plt.colorbar()
-            # plt.savefig(f"frame{frame}.png")
+            plt.imshow(bx.mean(axis=2))
+            plt.colorbar()
+            plt.savefig(f"frame{frame}.png")
             # check on what facet of the local cuboid the displacement has occurred
 
 
