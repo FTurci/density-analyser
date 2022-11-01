@@ -119,8 +119,9 @@ class LocalFlux(Reader):
         plt.close()
         plt.imshow(mnum.mean(axis=2), origin="lower")
         plt.colorbar()
-        plt.quiver(mbx.mean(axis=2),mby.mean(axis=2))
-        plt.savefig(f"num.png")
+        plt.quiver(mbx.mean(axis=2),mby.mean(axis=2), color='white')
+        plt.tight_layout()
+        plt.savefig(f"num.png", dpi=300)
         plt.close()
             # check on what facet of the local cuboid the displacement has occurred
 
