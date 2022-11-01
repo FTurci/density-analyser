@@ -85,7 +85,7 @@ class LocalFlux(Reader):
             pos = data.particles.positions.array
             # id =  data.particles.identifiers.array
             dispv = data.particles['Displacement'].array
-            print(dispv)
+            print(dispv.shape)
             dispm = dispv = data.particles['Displacement Magnitude'].array
             print(dispm.min(), dispm.mean(), dispm.max())
             dx = dispv[:,0]
