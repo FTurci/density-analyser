@@ -81,7 +81,7 @@ class LocalFlux(Reader):
             data = self.pipe.compute(frame)
             # pos = data.particles.positions.array[:,0]
             # id =  data.particles.identifiers.array
-            print(data.particles['Displacements'].array)
+            print(data.particles['Displacement'].array)
 
 
 # F = FluxMonitor()
