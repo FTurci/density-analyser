@@ -109,7 +109,7 @@ class LocalFlux(Reader):
         plt.colorbar()
         plt.savefig(f"frame.png")
         plt.close()
-        plt.imshow(nums.mean(axis=2))
+        plt.imshow(mnum.mean(axis=2))
         plt.colorbar()
         plt.savefig(f"num.png")
         plt.close()
