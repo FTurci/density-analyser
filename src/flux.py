@@ -83,12 +83,12 @@ class LocalFlux(Reader):
         bxs, bys, bzs = [], [], []
         nums = []
         for frame in range(start+1, end, stride):
-            # print("po",pos[valid])
+            print(f"{frame} of {end}")
             data = self.pipe.compute(frame)
             pos = data.particles.positions.array
             # id =  data.particles.identifiers.array
             dispv = data.particles['Displacement'].array
-            print(dispv.shape)
+            # print(dispv.shape)
             dispm  = data.particles['Displacement Magnitude'].array
             print(dispm.min(), dispm.mean(), dispm.max())
 
