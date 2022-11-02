@@ -113,6 +113,12 @@ class LocalFlux(Reader):
         mby  = np.mean(bys, axis=0)
         mbz  = np.mean(bzs, axis=0)
         mnum  = np.mean(nums, axis=0)
+
+        self.mbx = mbx
+        self.mby = mby
+        self.mbz = mbz
+        self.mnum = mnum
+        
         plt.imshow(mbx.mean(axis=2), origin="lower")
         plt.colorbar()
         plt.savefig(f"frame.png")
