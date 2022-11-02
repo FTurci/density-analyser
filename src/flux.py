@@ -118,17 +118,18 @@ class LocalFlux(Reader):
         self.mby = mby
         self.mbz = mbz
         self.mnum = mnum
-        
-        plt.imshow(mbx.mean(axis=2), origin="lower")
-        plt.colorbar()
-        plt.savefig(f"frame.png")
-        plt.close()
-        plt.imshow(mnum.mean(axis=2), origin="lower")
-        plt.colorbar()
-        plt.quiver(mbx.mean(axis=2),mby.mean(axis=2), color='white')
-        plt.tight_layout()
-        plt.savefig(f"num.png", dpi=300)
-        plt.close()
+
+        np.savez(self.path+".arrays.npz",flux_x=mbx,flux_y=mby,flux_z=mbz,num=mnum)
+        # plt.imshow(mbx.mean(axis=2), origin="lower")
+        # plt.colorbar()
+        # plt.savefig(f"frame.png")
+        # plt.close()
+        # plt.imshow(mnum.mean(axis=2), origin="lower")
+        # plt.colorbar()
+        # plt.quiver(mbx.mean(axis=2),mby.mean(axis=2), color='white')
+        # plt.tight_layout()
+        # plt.savefig(f"num.png", dpi=300)
+        # plt.close()
             # check on what facet of the local cuboid the displacement has occurred
 
 
