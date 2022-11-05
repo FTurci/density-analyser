@@ -82,9 +82,13 @@ class LocalFlux(Reader):
 
         bxs, bys, bzs = [], [], []
         nums = []
+
+
         for frame in range(start+1, end, stride):
             print(f"{frame} of {end}")
             data = self.pipe.compute(frame)
+            self.cell = data.cell[:]
+            bins = [np.arange(self.cell[k,-1],self.cell[k,-1]+self.cell[k,k]+binsize, binsize ) for k in range(3)]
             pos = data.particles.positions.array
             # id =  data.particles.identifiers.array
             dispv = data.particles['Displacement'].array
@@ -97,7 +101,7 @@ class LocalFlux(Reader):
             dz = dispv[:,2]
 
             pos = pos.T
-            bins = [np.arange(self.cell[k,-1],self.cell[k,-1]+self.cell[k,k]+binsize, binsize ) for k in range(3)]
+
 
             bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum',bins=bins)
             bxs.append(bx)
