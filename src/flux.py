@@ -100,7 +100,6 @@ class LocalFlux(Reader):
             dy = dispv[:,1]
             dz = dispv[:,2]
 
-            pos = pos.T
 
 
             bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum',bins=bins)
