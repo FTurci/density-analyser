@@ -78,7 +78,7 @@ class LocalFlux(Reader):
         start = self.args.start
         end = self.args.end
         stride = self.args.stride
-        bin = self.args.bin
+        binsize = self.args.bin
 
         bxs, bys, bzs = [], [], []
         nums = []
@@ -96,17 +96,20 @@ class LocalFlux(Reader):
             dy = dispv[:,1]
             dz = dispv[:,2]
 
-            bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum',bins=50)
+            pos = pos.T
+            bins = [np.arange(self.cell[k,-1],self.cell[k,-1]+self.cell[k,k]+binsize, binsize ) for k in range(3)]
+
+            bx,_,_ = stats.binned_statistic_dd(pos,dx,statistic='sum',bins=bins)
             bxs.append(bx)
 
-            by,_,_ = stats.binned_statistic_dd(pos,dy,statistic='sum',bins=50)
+            by,_,_ = stats.binned_statistic_dd(pos,dy,statistic='sum',bins=bins)
             bys.append(by)
 
-            bz,_,_ = stats.binned_statistic_dd(pos,dz,statistic='sum',bins=50)
+            bz,_,_ = stats.binned_statistic_dd(pos,dz,statistic='sum',bins=bins)
             bzs.append(bz)
 
             # check that the density is correct
-            num,_,_ = stats.binned_statistic_dd(pos,np.ones(pos.shape[0]),statistic='sum',bins=50)
+            num,_,_ = stats.binned_statistic_dd(pos,np.ones(pos.shape[0]),statistic='sum',bins=bins)
             nums.append(num)
 
         mbx  = np.mean(bxs, axis=0)
