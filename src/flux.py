@@ -67,7 +67,7 @@ class LocalFlux(Reader):
     def __init__(self):
         description="Check the flow of particles across the barrier."
         super().__init__(description)
-        self.parser.add_argument("-b","--bin",type=float, default=5.0)
+        self.parser.add_argument("-b","--bin",type=float, default=2.0)
         super().open_pipe()
         self.pipe.modifiers.append(ovito.modifiers.CalculateDisplacementsModifier(
         use_frame_offset=True,
