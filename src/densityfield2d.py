@@ -63,7 +63,7 @@ class DensityField2d(Reader):
 
             # write to file if requested
             if self.args.hdf5==True:
-                h5f.create_dataset('frame_%d'%frame, data=H)
+                h5f.create_dataset('frame_%d'%frame, data=H.astype(np.ubyte))
 
         if self.args.hdf5==True:
             h5f.close()
